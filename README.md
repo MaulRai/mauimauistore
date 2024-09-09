@@ -1,11 +1,7 @@
----
-
 # 📋 **Pertanyaan Tugas 2** - Django PWS Application
 
 **URL Aplikasi:**
 [My PWS Application](http://muhammad-raihan37-mauimauistore.pbp.cs.ui.ac.id/)
-
----
 
 ## 🛠 **Implementasi Checklist (Step-by-Step)**
 
