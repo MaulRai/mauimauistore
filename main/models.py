@@ -13,6 +13,8 @@ class MoodEntry(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=63)
     price = models.IntegerField()
+    rating = models.IntegerField()
+    stock = models.IntegerField()
     desc = models.CharField(max_length=255)
     
     @property

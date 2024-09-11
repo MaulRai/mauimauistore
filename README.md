@@ -6,13 +6,13 @@
 ## 🛠 **Implementasi Checklist (Step-by-Step)**
 
 1. **Membuat Proyek Django Baru**:  
-   Pertama, saya membuat proyek Django baru dengan aplikasi bernama `main`. Saya mengatur `urls.py` dan membuat model produk (`Product`) sesuai dengan kebutuhan e-commerce yang sedang saya kembangkan.
+   Pertama, saya membuat proyek Django baru dengan aplikasi bernama `main`. Langkah pertama yang saya lakukan adalah menginstall beberapa dependencies yang di list pada `requirements.txt`. Lalu mengatur allowed localhost dan menginisiasi git lalu push ke main. Setelah itu, saya push juga ke pws dan membuat projeknya disana.  Saya mengatur `urls.py` dan membuat model produk (`Product`) sesuai dengan kebutuhan e-commerce yang sedang saya kembangkan. Setelah itu saya berfokus untuk mulai membangun aplikasi `main` ini. Saya mendaftarkan aplikasi main ke dalam proyek, membuat templates berisi html.
 
 2. **Menambahkan Product Model**:  
-   Saya mengimplementasikan **model Product** yang menyimpan informasi terkait produk yang ditampilkan di toko online. Saya juga menambahkan **derived property** `get_formatted_price` untuk memformat harga produk.
+   Saya mengimplementasikan **model Product** yang menyimpan informasi terkait produk yang ditampilkan di toko online. Saya membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib yaitu String name, int price, dan String description. Saya juga menambahkan **derived property** `get_formatted_price` untuk memformat harga produk. Untuk tambahan informasi produk saya, saya juga menambahkan int rating dan int stocks.
 
 3. **Membuat Views dan URL Routing**:  
-   Selanjutnya, saya membuat `views.py` dan `urls.py` yang berfungsi untuk menampilkan produk dan halaman lainnya.
+   Selanjutnya, saya membuat `views.py` berisi fungsi `show_main` berisi context yang akan diakses pada html, dan `urls.py` di aplikasi main dan direktori projek utama yang berisis list dari url path yang diperlukan di projek saya agar tehubung dan berfungsi untuk menampilkan produk dan halaman lainnya.
 
 4. **Mengimplementasikan HTML, CSS, dan JS**:  
    - **HTML**: Saya membuat struktur halaman yang berisi header, navigation bar, slider, dan kolom produk.

@@ -197,6 +197,8 @@
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
+        justify-content: center;
+        {% comment %} align-items: center; {% endcomment %}
     }
     
     .product-item {
@@ -221,22 +223,43 @@
     .product-name {
         font-size: 16px;
         font-weight: bold;
-        margin: 5px 0;
+        margin-top: 0px;
     }
     
     .product-price {
         color: #555;
         font-size: 14px;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
     }
     
     .product-desc {
         color: #555;
         font-size: 12px;
+        
     }
     
     .product-item img {
         height: 150px;
         object-fit: cover;
+    }
+
+    .product-stock-rating {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+    }
+    
+    .product-stock {
+        font-size: 8px;
+        color: #555;
+    }
+    
+    .product-rating {
+        font-size: 10px;
+        color: gold;
     }
   </style>
   
@@ -291,18 +314,44 @@
   <h2>Kategori Pilihan</h2>
   <div class="product-row">
       <div class="product-item">
-          <img src= "https://i.imgur.com/lXoMbZZ.jpeg" alt="Product 1">
+          <img src= "https://i.imgur.com/yaSgHpW.jpeg" alt="Product 1">
           <div class="product-details">
-              <p class="product-name">Hitagi Plushie</p>
-              <p class="product-price">Rp400.000</p>
-              <p class="product-desc">Koyo koyooo</p>
+              <p class="product-name">Kobo Plushie</p>
+              <p class="product-price">Rp600.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+              <p class="product-desc">Beli ciki beli koyo, sukiyo~ -from:dev to: kobo_pacil</p>
           </div>
       </div>
+      <div class="product-item">
+        <img src= "https://i.imgur.com/lXoMbZZ.jpeg" alt="Product 1">
+        <div class="product-details">
+            <p class="product-name">Hitagi Plushie</p>
+            <p class="product-price">Rp400.000</p>
+            <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+            <p class="product-desc">Koyo koyooo</p>
+        </div>
+    </div>
       <div class="product-item">
           <img src="https://i.imgur.com/1eeYxod.jpeg" alt="Product 1">
           <div class="product-details">
               <p class="product-name">Suruga Plushie</p>
               <p class="product-price">Rp400.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
               <p class="product-desc">I love my senpai!</p>
           </div>
       </div>
@@ -311,6 +360,12 @@
           <div class="product-details">
               <p class="product-name">Karen Plushie</p>
               <p class="product-price">Rp500.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
               <p class="product-desc">Asta la vistaaa</p>
           </div>
       </div>
@@ -319,6 +374,12 @@
           <div class="product-details">
               <p class="product-name">Hanekawa Plushie</p>
               <p class="product-price">Rp550.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
               <p class="product-desc">i don't know everything i just know what i know</p>
           </div>
       </div>
@@ -327,6 +388,12 @@
           <div class="product-details">
               <p class="product-name">Shinobu Plushie</p>
               <p class="product-price">Rp450.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
               <p class="product-desc">ka..ka.. >_<</p>
           </div>
       </div>
@@ -335,6 +402,12 @@
           <div class="product-details">
               <p class="product-name">Nadeko Plushie</p>
               <p class="product-price">Rp400.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
               <p class="product-desc">Koyomi-onichan</p>
           </div>
       </div>
@@ -343,9 +416,85 @@
           <div class="product-details">
               <p class="product-name">Mayoi Plushie</p>
               <p class="product-price">Rp450.000</p>
+              <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
               <p class="product-desc">Sorry I stuttered, Arararagi-san</p>
           </div>
       </div>
+      <div class="product-item">
+        <img src="https://i.imgur.com/e8zJUC4.jpeg" alt="Product 1">
+        <div class="product-details">
+            <p class="product-name">Megumin Plushie</p>
+            <p class="product-price">Rp550.000</p>
+            <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+            <p class="product-desc">EKUSUPUROSHONNN!!!</p>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="https://i.imgur.com/fkQYokq.png" alt="Product 1">
+        <div class="product-details">
+            <p class="product-name">Hanni Plushie</p>
+            <p class="product-price">Rp700.000</p>
+            <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+            <p class="product-desc">🎤✨💜</p>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="https://i.imgur.com/r6qjq3l.png" alt="Product 1">
+        <div class="product-details">
+            <p class="product-name">Danielle Plushie</p>
+            <p class="product-price">Rp700.000</p>
+            <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+            <p class="product-desc">🎶🌸🫶</p>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="https://i.imgur.com/DnUzDvB.png" alt="Product 1">
+        <div class="product-details">
+            <p class="product-name">Haerin Plushie</p>
+            <p class="product-price">Rp700.000</p>
+            <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+            <p class="product-desc">🎧🐾🐱</p>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="https://i.imgur.com/6X7iFJe.png" alt="Product 1">
+        <div class="product-details">
+            <p class="product-name">Peashooter Plushie</p>
+            <p class="product-price">Rp300.000</p>
+            <div class="product-stock-rating">
+                <p class="product-stock">Stock: 88</p>
+                <div class="product-rating">
+                    ⭐⭐⭐⭐☆
+                </div>
+              </div>
+            <p class="product-desc">He'll protect your lawn</p>
+        </div>
+    </div>
   </div>
 </div>
 
