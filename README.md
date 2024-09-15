@@ -66,24 +66,24 @@ ORM (Object-Relational Mapping) adalah teknik untuk **mengkonversi data dari tab
 - Django ORM menangani berbagai operasi basis data (CRUD) secara otomatis, mempermudah pengelolaan data.
 
 
-# 📋 **Pertanyaan Tugas 3**
+## 📋 **Pertanyaan Tugas 3**
 
-**Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**
+## 📦 **Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**
 Dalam mengembangkan suatu platform, ada kalanya kita perlu mengirimkan data dari satu stack ke stack lainnya. Data yang dikirimkan bisa bermacam-macam bentuknya. Data delivery memastikan data yang diperlukan tersedia secara real-time di berbagai bagian platform. Dengan ini, setiap pengguna atau sistem lain yang terhubung ke platform dapat mengakses data yang terbaru dan akurat.
 Dalam platform yang besar, data biasanya tersebar di berbagai server atau lokasi. Data delivery yang efisien memastikan data dikirim dengan cara yang optimal, meminimalkan waktu trasfer data, dan mengurangi beban jaringan.
 Sumber: https://www.linkedin.com/pulse/importance-real-time-data-delivery-enterprises-challenges-ketan-raval-nvx0f/
 
-**Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**
+##❔**Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**
 Di banyak case, menurut saya JSON lebih baik daripada XML. JSON lebih compact dan lebih mudah untuk di load, khusunya di Javascipt. Di sisi lain XML lebih strict, namun dapat men-support schema dan namespace. Keunggulan lainnya, JSON lebih fleksibel dan lebih mudah digunakan.
 JSON lebih populer dibandingkan XML karena, kembali ke alasan yang tadi, karena mudah digunakan dan lebih cepat untuk transfer data, sedangkan XML lebih kompleks
 Sumber: https://stackoverflow.com/questions/5615352/xml-and-json-advantages-and-disadvantages
 
-**Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?**
+## ✅ **Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?**
 Merujuk pada deskripsi dan cara kerjanya:
 `Return True if the form has no errors, or False otherwise.`
 Fungsi ini di integrasi pada saat kita ingin `POST` yang mana memerlukan ke-valid-an sebelum di kirim ke database untuk di proses. Hal ini untuk menghindari error saat membaca data ataupun saat mem-parse datanya. Jika data pada form sudah benar-benar valid, maka form baru di save dan dikirim.
 
-**Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?**
+## 🎫🛡 **Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?**
 Merujuk pada tutorial 2 lalu, `csrf_token` adalah token yang berfungsi sebagai security. Token ini di-generate secara otomatis oleh Django untuk mencegah serangan berbahaya.
 Token ini akan menghindari kita dari berbagai kemungkinan serangan. Saat user terautentikasi dan menjelajahi web, Django men-generate token ini yang sifatnya unik pada tiap sesi penjelajahan kita. Token ini akan dikirim pada form dan request dari user dan akan dicek pada server untuk memverifikasi request itu dari user yang terautentikasi atau dari sumber malicious. Disini, token CSRF melindungi dari serangan yang dapat mengubah data. Maka dari itu kita memerlukannya dalam membuat form pada Django.
 Jika tidak ditambahkan maka berbagai serangan bisa muncul, seperti pengubahan data, penipuan, penggantian email, dan transfer of funds.
@@ -111,9 +111,22 @@ Sumber: https://www.geeksforgeeks.org/csrf-token-in-django/
 6. **Penggunaan Postman Sebagai Data Viewer**:  
    Terakhir saya mencoba untuk membuat request dengan method `GET` lewat Postman. Hasil akan di-attach pada akhir bagian Tugas 3 ini.
 
+☘ **-- FITUR TAMBAHAN --**
+7. **File picker untuk menambahkan gambar pada Produk**
+   Pada model produk saya, terdapat properti `image` yang akan di isi oleh file gambar. Untuk mengimplementasinya, saya mengawali mengimport Pillow secara lokal dengan env:
+   `pip install Pillow`
+   properti `image` ini akan diisi dengan ImageField lalu pada ProductForm ditambahkan fieldnya pula.
+   Karena request POST ini akan mem-pass file, maka pada parameter ProductForm akan ditambah request file, lalu masuk ke logic `form.is_valid()`. Kemudian untuk mengizinkan user mengunggah file-nya, pada create_product.html akan ditambahkan tag `enctype="multipart/form-data"` pada blok form. Untuk memastikan projek dapat handle file media, pada settings.py saya tambahkan line:
+   `MEDIA_URL = '/media/'`
+   `MEDIA_ROOT = os.path.join(BASE_DIR, 'media')`
+   dan pada urls.py di proyek:
+   `urlpatterns = [...] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`
+   Last, untuk display dari gambar yang telah diunduh, bisa di call lewat line:
+   `<img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">`
+
 ---
 
-**Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.**
+## 🖼 **Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.**
 Screenshot hasil akses di Postman: https://drive.google.com/drive/u/0/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG
 
 Thanks for visiting **mauistore**! Happy shopping!
