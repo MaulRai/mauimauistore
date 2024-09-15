@@ -114,7 +114,7 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
    Pada model produk saya, terdapat properti `image` yang akan di isi oleh file gambar. Untuk mengimplementasinya, saya mengawali mengimport Pillow secara lokal dengan env:
 
    `pip install Pillow`
-   
+
    properti `image` ini akan diisi dengan ImageField lalu pada ProductForm ditambahkan fieldnya pula.
    Karena request POST ini akan mem-pass file, maka pada parameter ProductForm akan ditambah request file, lalu masuk ke logic `form.is_valid()`. Kemudian untuk mengizinkan user mengunggah file-nya, pada create_product.html akan ditambahkan tag `enctype="multipart/form-data"` pada blok form. Untuk memastikan projek dapat handle file media, pada settings.py saya tambahkan line:
 
@@ -132,7 +132,7 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
 ---
 
 ## 🖼 **Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.**
-Screenshot hasil akses di Postman: https://drive.google.com/drive/u/0/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG
+Screenshot hasil akses di Postman: https://drive.google.com/drive/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG?usp=sharing
 
 Thanks for visiting **mauistore**! Happy shopping!
 
