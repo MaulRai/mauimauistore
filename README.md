@@ -115,7 +115,7 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
    Terakhir saya mencoba untuk membuat request dengan method `GET` lewat Postman. Hasil akan di-attach pada akhir bagian Tugas 3 ini.
 
    ☘ **-- FITUR TAMBAHAN --**
-7. **File picker untuk menambahkan gambar pada Produk**
+7. **File picker untuk menambahkan gambar pada Produk**:  
    Pada model produk saya, terdapat properti `image` yang akan di isi oleh file gambar. Untuk mengimplementasinya, saya mengawali mengimport Pillow secara lokal dengan env:
 
    `pip install Pillow`
