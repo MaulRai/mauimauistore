@@ -143,7 +143,7 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
 ---
 
 ## 🖼 **Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.**
-Screenshot hasil akses di Postman: https://drive.google.com/drive/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG?usp=sharing
+Screenshot hasil akses di Postman: [Hasil akses Postman](https://drive.google.com/drive/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG?usp=sharing).
 
 Thanks for visiting **mauistore**! Happy shopping!
 
