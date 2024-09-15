@@ -124,6 +124,7 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
    Karena request POST ini akan mem-pass file, maka pada parameter ProductForm akan ditambah request file, lalu masuk ke logic `form.is_valid()`. Kemudian untuk mengizinkan user mengunggah file-nya, pada create_product.html akan ditambahkan tag `enctype="multipart/form-data"` pada blok form. Untuk memastikan projek dapat handle file media, pada settings.py saya tambahkan line:
 
    `MEDIA_URL = '/media/'`
+   
    `MEDIA_ROOT = os.path.join(BASE_DIR, 'media')`
 
    dan pada urls.py di proyek:
