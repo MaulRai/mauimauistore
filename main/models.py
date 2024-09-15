@@ -19,6 +19,7 @@ class Product(models.Model):
     rating = models.IntegerField()
     stock = models.IntegerField()
     desc = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='products/', blank=True, null=True)  
     time = models.DateField(auto_now_add=True)
     
     @property

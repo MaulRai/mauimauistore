@@ -182,14 +182,14 @@
         background-color: rgba(255, 255, 255, 0.701);
         border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        padding: 20px;
+        padding: 0 20px 20px 20px;
         margin: 20px;
         width: auto;
         max-width: 100%;
     }
     
     .category-box h2 {
-        margin: 0 0 20px 0;
+        margin: 20px 0 20px 0;
         font-size: 24px;
         font-weight: bold;
     }
@@ -254,13 +254,103 @@
     }
     
     .product-stock {
-        font-size: 8px;
+        font-size: 9px;
         color: #555;
     }
     
     .product-rating {
         font-size: 10px;
         color: gold;
+    }
+
+    .add-product button {
+        padding: 5px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .footer-container {
+        background: linear-gradient(to right, #48A3FF, #44ECE9, #4AFFD5);
+        padding: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .footer-section {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .footer-column {
+        width: 22%;
+        margin-bottom: 20px;
+    }
+    
+    .footer-column h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #333;
+        white-space: nowrap;
+    }
+    
+    .footer-column ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .footer-column ul li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-column ul li a {
+        color: #555;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    
+    .footer-column ul li a:hover {
+        text-decoration: underline;
+    }
+    
+    .social-icons {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .social-icons img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .app-row {
+        display: flex;
+        align-items: center; /* Align items vertically */
+    }
+    
+    .app-placeholder {
+        width: 150px; /* Adjust logo width as needed */
+        margin-right: 20px; /* Add space between logo and buttons */
+    }
+    
+    .app-buttons-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .app-button {
+        width: 150px; /* Adjust button width as needed */
+        margin-bottom: 10px; /* Add space between Play Store and App Store buttons */
+    }
+    
+    .app-button:last-child {
+        margin-bottom: 0; /* Remove margin from the last button */
     }
   </style>
   
@@ -312,192 +402,121 @@
 </div>
 
 <div class="category-box">
-  <h2>Kategori Pilihan</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Kategori Pilihan</h2>
+        <a href="{% url 'main:create_product' %}" class="add-product">
+          <button>Add New Product</button>
+        </a>
+    </div>
   <div class="product-row">
-      <div class="product-item">
-          <img src= "https://i.imgur.com/yaSgHpW.jpeg" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Kobo Plushie</p>
-              <p class="product-price">Rp600.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">Beli ciki beli koyo, sukiyo~ -from:dev to: kobo_pacil</p>
-          </div>
-      </div>
-      <div class="product-item">
-        <img src= "https://i.imgur.com/lXoMbZZ.jpeg" alt="Product 1">
-        <div class="product-details">
-            <p class="product-name">Hitagi Plushie</p>
-            <p class="product-price">Rp400.000</p>
-            <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-            <p class="product-desc">Koyo koyooo</p>
+    {% if not products %}
+      <p>No product yet</p>
+    {% else %}
+        {% for product in products %}
+        <div class="product-item">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">
+            <div class="product-details">
+                <p class="product-name">{{product.name}}</p>
+                <p class="product-price">{{product.get_formatted_price }}</p>
+                <div class="product-stock-rating">
+                    <p class="product-stock">Stock: {{product.stock}}</p>
+                    <div class="product-rating">
+                        {% for i in "12345" %}
+                            {% if product.rating >= i|add:"0" %}
+                                ⭐
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                  </div>
+                <p class="product-desc">{{product.desc}}</p>
+            </div>
         </div>
-    </div>
-      <div class="product-item">
-          <img src="https://i.imgur.com/1eeYxod.jpeg" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Suruga Plushie</p>
-              <p class="product-price">Rp400.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">I love my senpai!</p>
-          </div>
-      </div>
-      <div class="product-item">
-          <img src="https://i.imgur.com/wdNa6uN.jpeg" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Karen Plushie</p>
-              <p class="product-price">Rp500.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">Asta la vistaaa</p>
-          </div>
-      </div>
-      <div class="product-item">
-          <img src="https://i.imgur.com/LtNMnxD.jpeg" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Hanekawa Plushie</p>
-              <p class="product-price">Rp550.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">i don't know everything i just know what i know</p>
-          </div>
-      </div>
-      <div class="product-item">
-          <img src="https://i.imgur.com/5tQ8IMV.jpeg" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Shinobu Plushie</p>
-              <p class="product-price">Rp450.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">ka..ka.. >_<</p>
-          </div>
-      </div>
-      <div class="product-item">
-          <img src="https://i.imgur.com/8gDQvvm.png" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Nadeko Plushie</p>
-              <p class="product-price">Rp400.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">Koyomi-onichan</p>
-          </div>
-      </div>
-      <div class="product-item">
-          <img src="https://i.imgur.com/rEUIRJv.jpeg" alt="Product 1">
-          <div class="product-details">
-              <p class="product-name">Mayoi Plushie</p>
-              <p class="product-price">Rp450.000</p>
-              <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-              <p class="product-desc">Sorry I stuttered, Arararagi-san</p>
-          </div>
-      </div>
-      <div class="product-item">
-        <img src="https://i.imgur.com/e8zJUC4.jpeg" alt="Product 1">
-        <div class="product-details">
-            <p class="product-name">Megumin Plushie</p>
-            <p class="product-price">Rp550.000</p>
-            <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-            <p class="product-desc">EKUSUPUROSHONNN!!!</p>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="https://i.imgur.com/fkQYokq.png" alt="Product 1">
-        <div class="product-details">
-            <p class="product-name">Hanni Plushie</p>
-            <p class="product-price">Rp700.000</p>
-            <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-            <p class="product-desc">🎤✨💜</p>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="https://i.imgur.com/r6qjq3l.png" alt="Product 1">
-        <div class="product-details">
-            <p class="product-name">Danielle Plushie</p>
-            <p class="product-price">Rp700.000</p>
-            <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-            <p class="product-desc">🎶🌸🫶</p>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="https://i.imgur.com/DnUzDvB.png" alt="Product 1">
-        <div class="product-details">
-            <p class="product-name">Haerin Plushie</p>
-            <p class="product-price">Rp700.000</p>
-            <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-            <p class="product-desc">🎧🐾🐱</p>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="https://i.imgur.com/6X7iFJe.png" alt="Product 1">
-        <div class="product-details">
-            <p class="product-name">Peashooter Plushie</p>
-            <p class="product-price">Rp300.000</p>
-            <div class="product-stock-rating">
-                <p class="product-stock">Stock: 88</p>
-                <div class="product-rating">
-                    ⭐⭐⭐⭐☆
-                </div>
-              </div>
-            <p class="product-desc">He'll protect your lawn</p>
-        </div>
-    </div>
+        
+        {% endfor %}
+    {% endif %}
+    <br />
   </div>
 </div>
+
+<footer class="footer-container">
+    <div class="footer-section">
+        <div>
+            <div class="footer-column">
+                <h3>Jelajahi</h3>
+                <ul>
+                    <li><a href="#">Elektronik</a></li>
+                    <li><a href="#">Fashion</a></li>
+                    <li><a href="#">Olahraga</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h3>Ikuti Saya</h3>
+                <ul class="social-icons">
+                    <li>
+                        <a href="https://www.instagram.com/raihan_mauln" target="_blank">
+                            <img src="https://i.imgur.com/j50IxQp.png" alt="Instagram">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/muhammad-raihan-maulana-a05a2823a/" target="_blank">
+                            <img src="https://i.imgur.com/MCTLp3H.png" alt="LinkedIn">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/@KoboKanaeru" target="_blank">
+                            <img src="https://i.imgur.com/JJL9JW9.png" alt="YouTube">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://x.com/kobokanaeru" target="_blank">
+                            <img src="https://i.imgur.com/vj5uUiY.png" alt="X (Twitter)">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Overview</h3>
+            <ul>
+                <li><a href="#">Karir</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">mauistore Marketing Solutions</a></li>
+                <li><a href="#">Kalkulator Indeks Masa Tubuh</a></li>
+                <li><a href="#">Promo Hari Ini</a></li>
+                <li><a href="#">Beli Lokal</a></li>
+                <li><a href="#">Promo</a></li>
+            </ul>
+        </div>
+
+        <!-- Bantuan Section -->
+        <div class="footer-column">
+            <h3>Bantuan dan Panduan</h3>
+            <ul>
+                <li><a href="#">Komunitas</a></li>
+                <li><a href="#">Syarat dan Ketentuan</a></li>
+                <li><a href="#">Kebijakan Privasi</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column app-section">
+            <h3>Aplikasi mauistore</h3>
+            <p>Belanja tanpa pake missing out kapan saja sekarang bisa ada di genggamanmu!</p>
+            <div class="app-row">
+                <img src="https://i.imgur.com/tAzai4d.png" alt="mauistore app placeholder" class="app-placeholder">
+        
+                <div class="app-buttons-column">
+                    <img src="https://static.wikia.nocookie.net/f7bb9d33-4f9a-4faa-88fe-2a0bd8138668" alt="Get it on Google Play" class="app-button">
+                    <img src="https://static.wikia.nocookie.net/464fc70a-5090-490b-b47e-0759e89c263f" alt="Download on the App Store" class="app-button">
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
 {% comment %} <script src="{% static 'js/scripts.js' %}"></script> {% endcomment %}
 <script>
@@ -547,36 +566,6 @@
 </script>
 
 </body>
-
-{% if not products %}
-<p>No product yet</p>
-{% else %}
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Rating</th>
-    <th>Stock</th>
-    <th>Description</th>
-  </tr>
-
-  {% for product in products %}
-  <tr>
-    <td>{{product.name}}</td>
-    <td>{{product.price}}</td>
-    <td>{{product.rating}}</td>
-    <td>{{product.stock}}</td>
-    <td>{{product.desc}}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
-
-<br />
-
-<a href="{% url 'main:create_product' %}">
-  <button>Add New Product</button>
-</a>
 </html>
 
 {% endblock content %}
