@@ -25,3 +25,8 @@ class Product(models.Model):
     @property
     def get_formatted_price(self):
         return f"Rp{self.price:,.0f}".replace(",", ".")
+    
+    # For testing purpose
+    @property
+    def is_good_product(self):
+        return self.rating > 4
