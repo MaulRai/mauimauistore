@@ -30,3 +30,10 @@ class Product(models.Model):
     @property
     def is_good_product(self):
         return self.rating > 4
+    
+class Monster(models.Model):
+    name = models.CharField(max_length=199)
+    email = models.EmailField()
+    age = models.IntegerField()
+    is_happy = models.BooleanField()
+    muncul = models.DateField(auto_now_add=True)
