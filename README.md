@@ -65,6 +65,7 @@ ORM (Object-Relational Mapping) adalah teknik untuk **mengkonversi data dari tab
 - **Model** memetakan data dari **database** menjadi objek Python, sehingga kita dapat berinteraksi dengan data menggunakan bahasa pemrograman, tanpa menulis SQL secara langsung.
 - Django ORM menangani berbagai operasi basis data (CRUD) secara otomatis, mempermudah pengelolaan data.
 
+---
 
 # 📋 **Pertanyaan Tugas 3**
 
@@ -72,12 +73,15 @@ ORM (Object-Relational Mapping) adalah teknik untuk **mengkonversi data dari tab
 Dalam mengembangkan suatu platform, ada kalanya kita perlu mengirimkan data dari satu stack ke stack lainnya. Data yang dikirimkan bisa bermacam-macam bentuknya. Data delivery memastikan data yang diperlukan tersedia secara real-time di berbagai bagian platform. Dengan ini, setiap pengguna atau sistem lain yang terhubung ke platform dapat mengakses data yang terbaru dan akurat.
 Dalam platform yang besar, data biasanya tersebar di berbagai server atau lokasi. Data delivery yang efisien memastikan data dikirim dengan cara yang optimal, meminimalkan waktu trasfer data, dan mengurangi beban jaringan[^1].
 
+---
+
 ## ❔**Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**
 
 Di banyak case, menurut saya JSON lebih baik daripada XML. JSON lebih compact dan lebih mudah untuk di load, khusunya di Javascipt. Di sisi lain XML lebih strict, namun dapat men-support schema dan namespace. Keunggulan lainnya, JSON lebih fleksibel dan lebih mudah digunakan.
 
 JSON lebih populer dibandingkan XML karena, kembali ke alasan yang tadi, karena mudah digunakan dan lebih cepat untuk transfer data, sedangkan XML lebih kompleks[^2].
 
+---
 
 ## ✅ **Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?**
 
@@ -87,6 +91,8 @@ Merujuk pada deskripsi dan cara kerjanya:
 
 Fungsi ini di integrasi pada saat kita ingin `POST` yang mana memerlukan ke-valid-an sebelum di kirim ke database untuk di proses. Hal ini untuk menghindari error saat membaca data ataupun saat mem-parse datanya. Jika data pada form sudah benar-benar valid, maka form baru di save dan dikirim.
 
+---
+
 ## 🎫🛡 **Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?**
 
 Merujuk pada tutorial 2 lalu, `csrf_token` adalah token yang berfungsi sebagai security. Token ini di-generate secara otomatis oleh Django untuk mencegah serangan berbahaya.
@@ -95,6 +101,8 @@ Token ini akan menghindari kita dari berbagai kemungkinan serangan. Saat user te
 Jika tidak ditambahkan maka berbagai serangan bisa muncul, seperti pengubahan data, penipuan, penggantian email, dan transfer of funds.
 
 Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti menyamar sebagai korban, mengubah data demi kepentingan penyerang, ataupun mengambil data akun di server lain lewat data credential user ini[^3].
+
+---
 
 ## 🛠 **Implementasi Checklist (Step-by-Step)**
 
@@ -145,11 +153,15 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
 ## 🖼 **Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.**
 Screenshot hasil akses di Postman: [Hasil akses Postman](https://drive.google.com/drive/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG?usp=sharing).
 
+---
+
 # 📋 **Pertanyaan Tugas 4**
 
 ## ↗ **Apa perbedaan antara `HttpResponseRedirect()` dan `redirect()`**
 Ada perbedaan diantara keduanya. Pada `HttpResponseRedirect` arugument yang di-pass hanya bisa berupa url, sementara `redirect` bisa lebih dari itu, selain url fungsi ini bisa menerima model dan view ke argumentnya. Jadi lebih fleksibel daripada yang orang-orang ekspektasikan `redirect` bisa lakukan [^4].
 `HttpResponseRedirect` merupakan kelas bawaan Django yang mengembalikan respons HTTP 302 (redirect) yang mengarahkan pengguna ke URL yang ditentukan. Fungsi ini digunakan ketika kita ingin lebih eksplisit dalam mengembalikan objek redirect, yaitu saat kita ingin menggunakan URL yang secara manual dihasilkan atau diubah. Sementara `redirect` adalah fungsi Django yang lebih mudah digunakan untuk mengarahkan pengguna karena lebih nyaman dan sering digunakan di kebanyakan situasi untuk mengurangi boilerplate code[^5].
+
+---
 
 ## 💙👤 **Jelaskan cara kerja penghubungan model `MoodEntry` dengan `User`!**
 Pada tutorial lalu, atribut `User` ditambah pada entity `MoodEntry` untuk mengidentifikasi kepunyaan dari setiap objek `MoodEntry`. Walaupun dengan atribut `id` sudah bisa teridentifikasi, namun belum jelas tentang pengaturan kemilikan objek tersebut. `User` pada field ini sendiri adalah objek `ForeignKey` yang parameter konstruktornya di pass `django.contrib.auth.models.User` agar dapat menghandle autentikasi. Dengan adanya atribut `User` ini, terdapat perubahan besar terhadap `MoodEntry`, yaitu:
@@ -157,20 +169,19 @@ Pada tutorial lalu, atribut `User` ditambah pada entity `MoodEntry` untuk mengid
 - Pada  `show_main`, `MoodEntry` sekarang di filter agar objek yang keluar adalah punya si user spesifik ini. Dari filter ini request yang di pass akan bisa dipakai property nya lewat `request.user.<property>`. 
 - Ketika pengguna login dan membuat mood entry, kita dapat menyimpan entri tersebut ke database dengan menghubungkannya ke pengguna yang login.
 
+---
 
 ## 🔐 **Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.**
 Perbedaan antara authentication dan authorization, singkatnya authentication untuk memverifikasi identitas dari suatu user atau service, sedangkan authorization menentukan hak aksesnya. Autentikasi biasa ditemukan dalam sistem untuk mengamankan akses untuk masuk ke aplikasi dan data. Contohnya jika kita butuh akses untuk ke situs, biasanya akan diminta usernama dan password. Behind the scene, sistem akan membandingkan username dan password yang kita masukkan dengan record pada database. Jika sama, sostem akan mengasumsikan kita adalah user yang valid dan akan diberikan akses. Sementara authorization adalah untuk memberikan user izin untuk mengakses data atau melakukan aksi tertentu. Contohnya jika ke toko kopi, ada A dan B yang berbeda role. A adalah barista, maka dia hanya bisa melihat dan melayani order. Di sisi lain B, sebagai manajer, selain 2 hal tadi juga punya akses untuk melihat penjualan hari ini. Karena A dan B punya role beda, sistem akan menggunakan identitas mereka untuk memberi izin (permission) masing-masing[^6].
 
-
 Saat pengguna login, terjadi autentikasi. Seperti yang tadi dijelaskan, saat autentikasi berlangsung, behind the scene, sistem akan membandingkan username dan password yang kita masukkan dengan record pada database. Jika sama, sostem akan mengasumsikan kita adalah user yang valid dan akan diberikan akses. Dalam projek Django ini, proses autentikasi akan memverifikasi beberapa credential. proses ini membutuhkan keyword argument, username, dan password pada umumnya, menecek pada backend otentikasinya, kemudian return objek `User` jika credentialnya valid, else akan di-raise PermissionDenied dan return none.
-
 
 Untuk implementasi authorization, Django memiliki sistem perizinan (permission) yang built-in. Sistem ini memungkinkan untuk mengatur izin ke user atau sekelompok user yang spesifik.Sistem ini digunakan oleh Django admin site, tetapi kita bisa menggunakannya juga untuk development. Beberapa permission yang digunakan Django admin diantaranya adalah akses untuk melihat dan mengubah permission dari suatu objek, melihat "add" form, dan melihat change list[^7].
 
+---
 
 ## 🍪 **Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?**
 Untuk mencapai koneksi persisten antara klien dan server, suatu software akan melakukan holding state, yaitu untuk mengingat siapa yang login saat berpindah-pindah halaman pada server kita. Django menyediakan session yang memungkinkan kita menyimpan dan megambil data per visit site. Django meng-handle proses pengiriman dan penerimaan cookies, dengan cara membuat session  ID cookie pada client side, dan menyimpan semua data yang berkaitan dengan server side. jadi datanya itself tidak tersimpan pada client side. Sistem otentikasi Django di-attach ke objek request lewat session dan middleware, yang akan memnyediakan atribut `request.user` untuk semua request dari representase user[^8].
-
 
 Selain mempertahankan status 'login' pada situs dan menyimpan data pada server side, Cookies juga memiliki kegunaan lain, diantaranya yaitu:
 - Menyimpan informasi pembayaran agar tetap aman
@@ -179,8 +190,9 @@ Selain mempertahankan status 'login' pada situs dan menyimpan data pada server s
 - Melacak bagaiman user berinteraksi dengan web, sehingga dari sisi developer bisa meningkatkan layanan webnya
 - Menampilkan iklan yang sudah dipersonalisasi dan relevan[^9].
 
-
 Saat kita menyimpan informasi kita ke cookies, by default nilai dari cookie itu transparan, bisa diubah. Kita tidak ingin cookies kita disalahgunakan, contohnya jika cookies diakses dan dimodifikasi oleh pihak yang nakal atau dikirim ke domain yang tidak seharusnya dikirim ke situ. Potensi buruk bisa dimulai dari hanya annoying — web tidak bekerja atau behavior aneh pada web — hingga kekacauan. Kriminal siber bisa saja mencuri session ID dan menggunakannya untuk mengubah agar cookie itu sakan-akan login sebagai orang lain, dan bahkan mengambil data credential sensitif seperti bank atau e-commerce. Oleh karena itu, tidak semua cookies aman, namun bisa dicegah seperti mempertinggi aware kita dan mem-blok cookie yang mencurigakan atau filter izin mana saja untuk cookie yang ingin di accept[^10].
+
+---
 
 ## 🛠 **Implementasi Checklist (Step-by-Step)**
 
@@ -217,6 +229,8 @@ Saat kita menyimpan informasi kita ke cookies, by default nilai dari cookie itu 
    `Sesi terakhir login: {{ last_login }}`
 
    Untuk cookies sudah saya terapkan pada step 4.
+
+---
 
 Thanks for visiting **mauistore**! Happy shopping!
 
