@@ -66,7 +66,7 @@ ORM (Object-Relational Mapping) adalah teknik untuk **mengkonversi data dari tab
 - Django ORM menangani berbagai operasi basis data (CRUD) secara otomatis, mempermudah pengelolaan data.
 
 
-## 📋 **Pertanyaan Tugas 3**
+# 📋 **Pertanyaan Tugas 3**
 
 ## 📦 **Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**
 Dalam mengembangkan suatu platform, ada kalanya kita perlu mengirimkan data dari satu stack ke stack lainnya. Data yang dikirimkan bisa bermacam-macam bentuknya. Data delivery memastikan data yang diperlukan tersedia secara real-time di berbagai bagian platform. Dengan ini, setiap pengguna atau sistem lain yang terhubung ke platform dapat mengakses data yang terbaru dan akurat.
@@ -145,9 +145,89 @@ Penyerang ini dapat memanfaatkan data dari user untuk mengeksploitasinya seperti
 ## 🖼 **Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.**
 Screenshot hasil akses di Postman: [Hasil akses Postman](https://drive.google.com/drive/folders/1msvpEBJlnvoDAKkk3di0BXPGNjNqlUZG?usp=sharing).
 
+# 📋 **Pertanyaan Tugas 4**
+
+## ↗ **Apa perbedaan antara `HttpResponseRedirect()` dan `redirect()`**
+Ada perbedaan diantara keduanya. Pada `HttpResponseRedirect` arugument yang di-pass hanya bisa berupa url, sementara `redirect` bisa lebih dari itu, selain url fungsi ini bisa menerima model dan view ke argumentnya. Jadi lebih fleksibel daripada yang orang-orang ekspektasikan `redirect` bisa lakukan [^4].
+`HttpResponseRedirect` merupakan kelas bawaan Django yang mengembalikan respons HTTP 302 (redirect) yang mengarahkan pengguna ke URL yang ditentukan. Fungsi ini digunakan ketika kita ingin lebih eksplisit dalam mengembalikan objek redirect, yaitu saat kita ingin menggunakan URL yang secara manual dihasilkan atau diubah. Sementara `redirect` adalah fungsi Django yang lebih mudah digunakan untuk mengarahkan pengguna karena lebih nyaman dan sering digunakan di kebanyakan situasi untuk mengurangi boilerplate code[^5].
+
+## 💙👤 **Jelaskan cara kerja penghubungan model `MoodEntry` dengan `User`!**
+Pada tutorial lalu, atribut `User` ditambah pada entity `MoodEntry` untuk mengidentifikasi kepunyaan dari setiap objek `MoodEntry`. Walaupun dengan atribut `id` sudah bisa teridentifikasi, namun belum jelas tentang pengaturan kemilikan objek tersebut. `User` pada field ini sendiri adalah objek `ForeignKey` yang parameter konstruktornya di pass `django.contrib.auth.models.User` agar dapat menghandle autentikasi. Dengan adanya atribut `User` ini, terdapat perubahan besar terhadap `MoodEntry`, yaitu:
+- Pada `create_mood_entry`, instead save form nya saja, kita akan save user nya juga untuk melanjutkan dan redirect
+- Pada  `show_main`, `MoodEntry` sekarang di filter agar objek yang keluar adalah punya si user spesifik ini. Dari filter ini request yang di pass akan bisa dipakai property nya lewat `request.user.<property>`. 
+- Ketika pengguna login dan membuat mood entry, kita dapat menyimpan entri tersebut ke database dengan menghubungkannya ke pengguna yang login.
+
+
+## 🔐 **Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.**
+Perbedaan antara authentication dan authorization, singkatnya authentication untuk memverifikasi identitas dari suatu user atau service, sedangkan authorization menentukan hak aksesnya. Autentikasi biasa ditemukan dalam sistem untuk mengamankan akses untuk masuk ke aplikasi dan data. Contohnya jika kita butuh akses untuk ke situs, biasanya akan diminta usernama dan password. Behind the scene, sistem akan membandingkan username dan password yang kita masukkan dengan record pada database. Jika sama, sostem akan mengasumsikan kita adalah user yang valid dan akan diberikan akses. Sementara authorization adalah untuk memberikan user izin untuk mengakses data atau melakukan aksi tertentu. Contohnya jika ke toko kopi, ada A dan B yang berbeda role. A adalah barista, maka dia hanya bisa melihat dan melayani order. Di sisi lain B, sebagai manajer, selain 2 hal tadi juga punya akses untuk melihat penjualan hari ini. Karena A dan B punya role beda, sistem akan menggunakan identitas mereka untuk memberi izin (permission) masing-masing[^6].
+
+
+Saat pengguna login, terjadi autentikasi. Seperti yang tadi dijelaskan, saat autentikasi berlangsung, behind the scene, sistem akan membandingkan username dan password yang kita masukkan dengan record pada database. Jika sama, sostem akan mengasumsikan kita adalah user yang valid dan akan diberikan akses. Dalam projek Django ini, proses autentikasi akan memverifikasi beberapa credential. proses ini membutuhkan keyword argument, username, dan password pada umumnya, menecek pada backend otentikasinya, kemudian return objek `User` jika credentialnya valid, else akan di-raise PermissionDenied dan return none.
+
+
+Untuk implementasi authorization, Django memiliki sistem perizinan (permission) yang built-in. Sistem ini memungkinkan untuk mengatur izin ke user atau sekelompok user yang spesifik.Sistem ini digunakan oleh Django admin site, tetapi kita bisa menggunakannya juga untuk development. Beberapa permission yang digunakan Django admin diantaranya adalah akses untuk melihat dan mengubah permission dari suatu objek, melihat "add" form, dan melihat change list[^7].
+
+
+## 🍪 **Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?**
+Untuk mencapai koneksi persisten antara klien dan server, suatu software akan melakukan holding state, yaitu untuk mengingat siapa yang login saat berpindah-pindah halaman pada server kita. Django menyediakan session yang memungkinkan kita menyimpan dan megambil data per visit site. Django meng-handle proses pengiriman dan penerimaan cookies, dengan cara membuat session  ID cookie pada client side, dan menyimpan semua data yang berkaitan dengan server side. jadi datanya itself tidak tersimpan pada client side. Sistem otentikasi Django di-attach ke objek request lewat session dan middleware, yang akan memnyediakan atribut `request.user` untuk semua request dari representase user[^8].
+
+
+Selain mempertahankan status 'login' pada situs dan menyimpan data pada server side, Cookies juga memiliki kegunaan lain, diantaranya yaitu:
+- Menyimpan informasi pembayaran agar tetap aman
+- Mempersonalisasi konten yang kita lihat
+- Menyimpan settings dan tema yang kita prefer
+- Melacak bagaiman user berinteraksi dengan web, sehingga dari sisi developer bisa meningkatkan layanan webnya
+- Menampilkan iklan yang sudah dipersonalisasi dan relevan[^9].
+
+
+Saat kita menyimpan informasi kita ke cookies, by default nilai dari cookie itu transparan, bisa diubah. Kita tidak ingin cookies kita disalahgunakan, contohnya jika cookies diakses dan dimodifikasi oleh pihak yang nakal atau dikirim ke domain yang tidak seharusnya dikirim ke situ. Potensi buruk bisa dimulai dari hanya annoying — web tidak bekerja atau behavior aneh pada web — hingga kekacauan. Kriminal siber bisa saja mencuri session ID dan menggunakannya untuk mengubah agar cookie itu sakan-akan login sebagai orang lain, dan bahkan mengambil data credential sensitif seperti bank atau e-commerce. Oleh karena itu, tidak semua cookies aman, namun bisa dicegah seperti mempertinggi aware kita dan mem-blok cookie yang mencurigakan atau filter izin mana saja untuk cookie yang ingin di accept[^10].
+
+## 🛠 **Implementasi Checklist (Step-by-Step)**
+
+1. **Melihat apa apa saja yang akan di implementasi dari Tutorial 3**:  
+   Pertama, saya mencoba untuk memahami fungsi dan cara kerja dari method dan line yang ingin ditambahkan pada Tugas 3 ini. Saya melakukan GSGS (Google sana Google sini) tantang HTTP itself, karena pada tugas ini perlu pemahaman dasar tentang cara kerjanya, holding state, cookies, dan session.
+
+2. **Membuat Fungsi dan Form Registrasi:**
+   Untuk menginisiasi pembuatan User, diperlukan credential seperti username dan password, untuk itu kita memerlukan form registrasi dan logic function untuk menghandle proses login nya. Yang pertama akan diimplementasi adalah membuat method `register(request)` pada views.py, berisi form yang digunakan untuk membuat `UserCreationForm` baru dari yang sudah di-impor sebelumnya dengan memasukkan QueryDict berdasarkan input dari user pada request.POST dan memvalidasi dan save, kemudian akan redirect halaman main:login. Namun, jika kasusnya adalah bukan request.POST atau form tidak valid, maka form nya akan di pass ke template untuk di render kembali.
+
+   Sedangkan untuk halaman register nya akan dibuat register.html pada direktori main/templates yang meng-extend base.html, berisi yang berisi table form dan message nya. Agar path ke html ini bisa terakses perlu ditambahkan `path('register/', register, name='register')` ke dalam list urlpattern dalam urls.py.
+
+3. **Membuat Fungsi Login dan Logout:**
+   Karena kita sudah mengimplementasikan register, kita perlu juga untuk mengimplementasi login dan logout, agar bagi yang sudah mempunyai akun, bisa dapat masuk ke server lagi lewat username dan password yang telah ia buat serta dapat keluar lagi. Logic login yang dibuat mirip dengan `register` tadi. Saya menambahkan function `login_user(request)`, bedanya pada method ini sumber form nya berasal dari `AuthenticationForm`, dicek validasinya, lalu di-retrieve user lewat `get_user` dan sudah ada built-in function dari Django bernama `login` untuk membuat session jika valid dan further handling nya. Diakhiri dengan redirect ke main:show_main. Kasus dimana request bukan POST akan di handle kurang lebih sama dengan `register`.
+
+   Lalu, untuk halaman login nya akan dibuat login.html pada direktori main/templates yang meng-extend base.html, berisi yang berisi table form dan message nya. Agar path ke html ini bisa terakses perlu ditambahkan `path('login/', login_user, name='login')` ke dalam list urlpattern dalam urls.py.
+
+   Untuk function `logout`, saya menambahkannua di views.py juga, berisi method built-in `logout(request)` yang digunakan untuk menghapus sesi pengguna yang saat ini masuk. Kemudian redirect ke main:login. Untuk implemntasinya pada html, saya tambahkan button dan anchor mengarah ke main:logout serta membuat path nya di urls.py.
+
+4. **Akses dan Cookies:**
+   Untuk meretriksi halaman main agar hanya dapat diakses oleh pengguna yang sudah login (terautentikasi), perlu ditambahkan modifier  `login_required` tepat diatas function show_main. Lalu, untuk menggunakan data dari cookies, pada validasi di function `login`, saya menambahkan `HttpResponseRedirect` dengan parameter `reverse("main:show_main")` yang kemudian akan di set cookienya. Untuk saat ini, kita memerlukan info last login, maka yang kita pas pada setter itu adalah `str(datetime.datetime.now())`. Lalu response ini akan di return.
+
+   Untuk menampilkan `last_login` tadi, pada context di show_main, saya tambahkan informasi `last_login` lewat property COOKIES dari parameter request. Untuk memastikan cookie tidak tercampur saat pergantian user, perlu dihapus cookies nya di function `logout_user`. Lastly, karena informasi `last_login` telah di pass dari context, jadi kita bisa akses variabel nya dari html.
+
+5. **Menghubungkan Model Product dengan User**
+   Untuk menghubungkannya, pertama dengan membuat atribut `user = models.ForeignKey(User, on_delete=models.CASCADE)` pada model Product, jadi Product pasti terasosiasikan dengan seorang user. Product akan disesuaikan agar product yang ditampilkan adalah kepunyaan user yang sedang login dengan penyesuaian di function `create_product. Lalu pada context di function show_main saya juga menambahkan name. Untuk menyimpan perubahan model, saya melakukan migrate. 
+
+6. **Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal:**
+   Model dan produk telah terimplementasi dan terhubung, maka step ini baru bisa kita lakukan. Saya membuat akun dengan username `meong` dan `hafizh` dengan masing masing ada 3 produk yang ditambahkan.
+
+7. **Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi:**
+   Context pada `show_main` sudah mengandung informasi `last_login` dan `name`. Informasi ini saya panggil ke html pada header di web saya untuk menyapa user dan menampilkan kapan terakhir user login
+
+   `Mau belanja apa hari ini, {{ name }}?`
+   `Sesi terakhir login: {{ last_login }}`
+
+   Untuk cookies sudah saya terapkan pada step 4.
+
 Thanks for visiting **mauistore**! Happy shopping!
 
 ---
 [^1]: https://www.linkedin.com/pulse/importance-real-time-data-delivery-enterprises-challenges-ketan-raval-nvx0f/
 [^2]: https://stackoverflow.com/questions/5615352/xml-and-json-advantages-and-disadvantages
 [^3]: https://www.geeksforgeeks.org/csrf-token-in-django/
+[^4]: https://stackoverflow.com/questions/13304149/what-the-difference-between-using-django-redirect-and-httpresponseredirect#:~:text=There%20is%20a%20difference%20between,it%20can%20"redirect"%20to.
+[^5]: https://docs.djangoproject.com/en/stable/topics/http/shortcuts/#redirect
+[^6]: https://www.onelogin.com/learn/authentication-vs-authorization#:~:text=Authentication%20and%20authorization%20are%20two,authorization%20determines%20their%20access%20rights.
+[^7]: https://docs.djangoproject.com/en/4.2/topics/auth/default/
+[^8]: https://www.dcs.gla.ac.uk/~leif/di/tutorial/cookie.html#:~:text=Django%20provides%20a%20session%20framework,is%20not%20stored%20client%20side.
+[^9]: https://www.cookieyes.com/blog/internet-cookies/#:~:text=Cookies%20are%20set%20on%20the,ad%20targeting%2C%20and%20much%20more.
+[^10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies

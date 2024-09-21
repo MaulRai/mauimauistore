@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator 
 import uuid
+from django.contrib.auth.models import User
 
 class MoodEntry(models.Model):
     mood = models.CharField(max_length=255)
@@ -13,6 +14,7 @@ class MoodEntry(models.Model):
         return self.mood_intensity > 5
     
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=63)
     price = models.IntegerField()
@@ -31,9 +33,9 @@ class Product(models.Model):
     def is_good_product(self):
         return self.rating > 4
     
-class Monster(models.Model):
-    name = models.CharField(max_length=199)
-    email = models.EmailField()
-    age = models.IntegerField()
-    is_happy = models.BooleanField()
-    muncul = models.DateField(auto_now_add=True)
+# class Monster(models.Model):
+#     name = models.CharField(max_length=199)
+#     email = models.EmailField()
+#     age = models.IntegerField()
+#     is_happy = models.BooleanField()
+#     muncul = models.DateField(auto_now_add=True)

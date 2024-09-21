@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+{% endblock meta %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Register</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background: linear-gradient(to right, #ADCEEF, #A6FCFB, #BCF4E7);
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+    
+      .login {
+          background-color: rgba(255, 255, 255, 0.701);
+          border-radius: 8px;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 40px;
+          width: 700px;
+          text-align: center;
+      }
+    
+      .login h1 {
+          font-size: 28px;
+          margin-bottom: 20px;
+          color: #333; 
+      }
+    
+      form table {
+          width: 100%;
+      }
+    
+      form td {
+          padding: 10px 0;
+      }
+    
+      input[type="text"], input[type="password"] {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          box-sizing: border-box;
+          font-size: 16px;
+          margin-bottom: 20px;
+      }
+    
+      .register_btn {
+          width: 100%;
+          background-color: #007bff; 
+          color: white;
+          border: none;
+          padding: 12px;
+          font-size: 16px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+    
+      .register_btn:hover {
+          background-color: #0056b3; 
+      }
+
+      .register_btn:active {
+        background-color: #004080; 
+        transform: scale(0.97);
+      }
+    
+      ul {
+          padding: 0;
+          margin: 20px 0;
+          list-style-type: none;
+      }
+    
+      ul li {
+          color: #ff0000; 
+          font-size: 14px;
+      }
+    
+      .login a {
+          display: block;
+          margin-top: 20px;
+          color: #007bff; 
+          text-decoration: none;
+      }
+    
+      .login a:hover {
+          text-decoration: underline;
+      }
+    
+      @media (max-width: 480px) {
+          .login {
+              width: 100%;
+              padding: 20px;
+          }
+      }
+  
+    </style>
+  </head>
+  <body>
+    <div class="login">
+      <h1>Register</h1>
+    
+      <form method="POST">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+          <tr>
+            <td colspan="2"><input class="btn register_btn" type="submit" name="submit" value="Daftar" /></td>
+          </tr>
+        </table>
+      </form>
+    
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </body>
+</html>
+
+
+{% endblock content %}

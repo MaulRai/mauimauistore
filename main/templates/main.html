@@ -93,14 +93,25 @@
         margin-right: 20px;
     }
     
-    .navbar button {
+    button {
         margin-right: 10px;
         padding: 10px 20px;
-        background-color: #007bff;
+        background-color: #007bff; 
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease; 
+    }
+    
+    button:hover {
+        background-color: #0056b3; 
+        transform: scale(1.05); 
+    }
+    
+    button:active {
+        background-color: #004080; 
+        transform: scale(0.95);
     }
     
     .navbar button:last-child {
@@ -381,16 +392,16 @@
     </div>
     <div class="cart-icon">🛒</div>
     <div class="divider"></div>
-    <button>Masuk</button>
-    <button>Daftar</button>
+    <a href="{% url 'main:logout' %}">
+        <button>Logout</button>
+    </a>
 </div>
 
 <div class="welcome-box">
   <p>
     Selamat datang di <span class="heading">mauistore</span><br>
-    Web ini dikembangkan oleh {{ name }}<br>
-    NPM {{ npm }} dari kelas {{ class }}<br>
-    Selamat berbelanja!
+    Mau belanja apa hari ini, {{ name }}?<br>
+    Sesi terakhir login: {{ last_login }}
   </p>
 </div>
 
