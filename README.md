@@ -411,10 +411,6 @@ Kegunaan dari grid layout adalah untuk me-layout item-item ke dalam tabel dengan
 
   Sehingga saat ada resize ke ukuran 'small' button button apda row hilang dihantikan dengan 1 tombol dropdown
 
-  ```
-
-  ```
-
 
 ---
 
