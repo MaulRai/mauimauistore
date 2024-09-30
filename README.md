@@ -232,6 +232,192 @@ Saat kita menyimpan informasi kita ke cookies, by default nilai dari cookie itu 
 
 ---
 
+# 📋 **Pertanyaan Tugas 5**
+
+## ↗ **Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!**
+Pada web development, sering didapati rule CSS yang berlaku untuk satu elemen, tetapi terkadang beberapa diantaranya tidak diterapkan karena browser memutuskan rule mana yang akan diterapkan pada elemen. Aturan itu kita sebut sebagai specificity,
+
+Ada 4 hirarki prioritas pada selector:
+1. Inline styles - Contoh: <h1 style="color: pink;">
+2. IDs - Contoh: #navbar
+3. Classes, pseudo-classes, attribute selectors - Contoh: .test, :hover, [href]
+4. Elements and pseudo-elements - Contoh: h1, ::before[^11]
+
+Contoh, text 'Hello World' akan berwarna hijau, karena class emiliki priority lebih besar
+
+```
+<html>
+<head>
+  <style>
+    .test {color: green;}
+    p {color: red;}
+  </style>
+</head>
+<body>
+
+<p class="test">Hello World!</p>
+
+</body>
+</html>
+```
+
+Contoh berikutnya, text 'Hello World' akan berwarna pink. inline style akan diterapkan.
+
+```
+<html>
+<head>
+  <style>
+    #demo {color: blue;}
+    .test {color: green;}
+    p {color: red;}
+  </style>
+</head>
+<body>
+
+<p id="demo" class="test" style="color: pink;">Hello World!</p>
+
+</body>
+</html>
+```
+
+---
+
+## ↗ **Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!**
+Responsive web design merupakan metode sistem desain web yang memiliki tujuan untuk menghasilkan tampilan web yang terlihat baik pada seluruh perangkat seperti desktop, tablet, mobile, dan sebagainya. Dari tujuannya, terlihat bahwa responsive design sangat penting, karena pada dunia riil nya, sebuah web harus memenuhi user experience dan user interface. Responsive design harus diimplementasi karena tidak semua user memiliki diemnsi device yang sama. Bisa jadi ada yang mengakses lewat laptop dan ada juga yang mengakses lewat handphone. Jika tidak diimplementasi, bisa jadi ukuran font tidak pas entah terlalu besar pada handphone atau terlalu kecil untuk laptop, dan lain-lain.
+Contoh web yang sudah menerapkan responsif design adalah
+
+`https://scele.cs.ui.ac.id`
+
+Website scele saat screen sudah 'small', navigation bar nya ada perubahan. Yang tadinya row of button menjadi single button untuk dropdown. Sehingga, user handphone tetap dapat mengakses Scele dengan nyaman
+
+Contoh web yang belum menerapkan responsif design adalah:
+
+`https://www.lingscars.com`
+
+Design nya yang ramai dan juga tidak ada penyesuaian saat ukuran screen membuat web ini tidak responsif. Padahal button-bbutton yang seharusnya bisa dengan mudah diakses menjadi tidak bisa diakses pada screen 'small' karena design nya yang tidak responsif
+
+---
+
+## ↗ **Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!**
+Padding adalah gap dalam antara content dan border nya. Gunanya agar content terlihat tidak padat.
+Border sendiri adalah pembatas antara content dengan hal hal lain diluarnya. Property ini bisa punya ketebalan juga, jadi bordernya berupa garis pembatas dengan ketebalan tertentu.
+Margin adalah gap luar, berada diluar border. Gunanya agar ada gap diantara 'daerah' dari elemen satu dengan lainnya
+
+           margin
+////////b/o/r/d/e/r//////////
+//        padding          //
+//  contentcontentcontent  //
+//  contentcontentcontent  //
+//        padding          //
+////////b/o/r/d/e/r//////////
+           margin
+
+---
+
+## ↗ **Jelaskan konsep flex box dan grid layout beserta kegunaannya!**
+*Flex box* bertujuan untuk mem-provide layout yang efisien, meng-align, dan menyebarkan space antara tiap-tiap item dalam container, bahkan saat ukurannya pun tidak diketahui atau dynamic (makanya namanya flex). Ide dibalik layout ini adalah untuk memberikan container kemampuan untuk mengatur panjang dan tinggi item-itemnya untuk menciptakan layout terbaik dengan space yang tersedia. Flex box akan meng-expand item-itemnya untuk mengisi space yang tersedia atau men-shrink nya agar tidak overflow.
+
+Kegunaan dari flexbox adalah misalnya untuk memuat row, atau misalnya untuk membuat display produk-produk dengan rapi. Dengan properti-properti modul ini, spacing bisa disesuaikan. Misal untuk display produk, informasi harus terbaca dan font tidak boleh kecil, karena flexbox akan mengubah ukurannya, harus di set menjadi flex-wrap agar jika produk tidak cukup menyamping akan ditampilkan kebawah[^12].
+
+*Grid Layout* adalah layout 2D yang berbasis grid. Jadi kurang lebih seperti tabel. Flexbox memang tools yang sangat bagus, tetapi hanya bisa satu arah, berbeda denga grid layout. 
+
+Kegunaan dari grid layout adalah untuk me-layout item-item ke dalam tabel dengan cakupan cell yang bisa di kustomisasi. Misal item A pada baris ke-0, mempunyai span sebesar 2 maka nanti si item A ini nanti akan mengisi 2 cell sekaligus memanjang. Pada cell itu sendiri kita juga bisa mengatur bagaimana behavior item ini, seperti align nya, apakah mentok atas, centerd, atau mentok bawah, lalu juga ada gapping per cell nya, behavior si item bagaimana dia mengisi space yang di sediakan pada cell nya. Dari kode css nya nanti di provide template space cell-cell nya, bisa juga ada subgridnya[^13].
+
+---
+
+## ↗ **Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
+1. **Melihat apa apa saja yang akan di implementasi dari Tutorial 4**:  
+   Pertama, saya mencoba untuk memahami fungsi dan cara kerja dari method dan line yang ingin ditambahkan pada Tugas 3 ini. Saya mencari tahu tentang Tailwind CSS, yaitu framework CSS yang saya pilih untuk mendesain web saya. Library framework ini sudah pre-defined sehingga saya harus mencari tahu property CSS penting untuk mengintegrasikannya ke web. Saya mendapati framework ini sangat memudahkan dekorasi web, walaupun sedikit aneh melihat line-line panjang untuk class pada blok di html yang biasanya di handle secara eksternal pada file CSS di luar. 
+
+   Selain Tailwind CSS, saya juga mencari tahu tentang CRUD dan bagaimana mengimplementasinya ke web saya.
+
+2. **Implementasikan fungsi untuk menghapus dan mengedit product.** 
+   Pertama saya menambahkan function berikut pada views.py, produk yang akan di POST (dalam hal ini diupdate) akan di filter terlebih dahulu dengan given id, lalu dibuat form yang sama dengan create product namun sudah pre-filled dengan yang terakhir kali disimpan. Selanjutnya akan di validasi dan diredirect ke laman edit page nya. Saya juga menambahkan path logic function edit_product ini ke urls.py.
+
+   ```
+   def edit_product(request, id):
+      product = Product.objects.get(pk = id)
+
+      form = ProductForm(request.POST or None, instance=product)
+
+      if form.is_valid() and request.method == "POST":
+         form.save()
+         return HttpResponseRedirect(reverse('main:show_main'))
+
+      context = {'form': form}
+      return render(request, "edit_product.html", context)
+   ```
+
+   Lanjut ke bagian html saya membuat form nya, lengkap dengan crsf_token dan tombol submit untuk meng-handle update data nya. Lalu pada display product itu sendiri saya menambahkan edit button, untuk handling nya.
+
+   Untuk handle delete product, saya mengimplementasi function delete_product dengan mengambil id produk tersebut lalu hapus dengan method delete(), lalu redirect:
+
+   ```
+   def delete_product(request, id):
+      product = Product.objects.get(pk = id)
+      product.delete()
+      # Kembali ke halaman awal
+      return HttpResponseRedirect(reverse('main:show_main'))
+   ```
+
+   Saya juga menambahkan path logic function delete_product ini ke urls.py. Lalu pada display product itu sendiri saya menambahkan delete button, untuk handling nya.
+
+3. **Kustomisasi desain pada template HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS framework**
+  Saya sebelumnya sudah mengimplementasi dekorasi html dengan internal maupun eksternal lewat static file. Untuk bereksperimen dengan framework css ini saya mencoba integrasi secara inline dan mengubah beberapa styling pada blok-blok tertentu. Misal:
+  
+  ```
+  .product-name {
+      font-weight: bold;      
+      font-size: 0.875rem;     
+      margin-bottom: 0.125rem; 
+
+      @media (min-width: 640px) {
+         font-size: 1rem;         
+         margin-bottom: 0.25rem;   
+      }
+   }
+
+   ...
+
+   <div class="product-name">{{ product.name }}</div>
+  ```
+
+  menjadi
+
+  `<div class="font-bold text-sm sm:text-base mb-0.5 sm:mb-1">{{ product.name }}</div>`
+  
+  Dengan adanya inline Tailwind styling ini saya terbantu untuk mendesain halaman login, register, dan tambah product . 
+  
+  Terlihat juga pada contoh di atas saya menggunakan properti @media (pada inline ditunjukkan dengan 'sm:'). Dengan adanya pengaturan seperti ini, maka web yang saya buat akan kompatible terhadap resize (responisive) dan akan menyesuaikan dimensi devicenya. Saat ukuran device < 640px, beberapa ukuran elemen akan di resize menjadi lebih kecil.
+
+  Karena produk belum tentu selalu ada, sampai user menambahkannya, maka saya menambahkan pesan dan gambar untuk memberi tahunya. Lalu jika sudah ada saya menampilkannya lewat `card_product.html`:
+
+  ```
+   {% for product in products %}
+      {% include 'card_product.html' with product=product %}
+   {% endfor %}
+  ```
+
+  Dengan adanya context `product=product`, maka nanti dari `card_product.html` bisa di refer si produk yang sudah di specify tersebut. Karena sebenarnya saya sudah mengimplementasi ini, saya cukup memisahkannya menjadi html tersendiri. Lalu saya mendesainnya dengan Tailwind CSS dan menambahkan button edit dan delete tadi beserta handler nya
+
+4. **Navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.**
+  Untuk membuat navbar, perlu dipertimbangkan untuk mengimplementasinya sampai antar-halaman. Maka dari itu saya membuatnya di `./templates`, lalu cukup dipanggil lewat `{% include 'navbar.html' %}` pada page-page lainnya. Pada pengimplementasiannya saya menggunakan logic untuk mengubah row of button menjadi button dropdown saat di resize menjadi mobile size. Logic itu diimplementasi dengan cara set class button button pada row tersebut dengan:
+
+  `class="hidden sm:inline-block"`
+
+  dan juga untuk button dropdown:
+
+  `class="mobile-menu hidden md:hidden ... "`
+
+  Sehingga saat ada resize ke ukuran 'small' button button apda row hilang dihantikan dengan 1 tombol dropdown
+
+  ```
+
+  ```
+
+
+---
+
 Thanks for visiting **mauistore**! Happy shopping!
 
 ---
@@ -245,3 +431,6 @@ Thanks for visiting **mauistore**! Happy shopping!
 [^8]: https://www.dcs.gla.ac.uk/~leif/di/tutorial/cookie.html#:~:text=Django%20provides%20a%20session%20framework,is%20not%20stored%20client%20side.
 [^9]: https://www.cookieyes.com/blog/internet-cookies/#:~:text=Cookies%20are%20set%20on%20the,ad%20targeting%2C%20and%20much%20more.
 [^10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+[^11]: https://www.w3schools.com/css/css_specificity.asp
+[^11]: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+[^11]: https://css-tricks.com/snippets/css/complete-guide-grid/

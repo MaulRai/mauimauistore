@@ -1,25 +1,24 @@
-<nav class="bg-indigo-600 shadow-lg fixed top-0 left-0 z-40 w-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-center text-white">Mental Health Tracker</h1>
+<nav class="shadow-lg fixed top-0 left-0 z-40 w-screen">
+  <div class="max-w-9xl" style="background: linear-gradient(to right, #48A3FF, #44ECE9, #4AFFD5);">
+    {% if user.is_authenticated %}
+      <div class="justify-end hidden sm:flex" style="background: linear-gradient(to right, #48A3FF, #44ECE9, #4AFFD5);">
+        <p class="text-gray-600 text-xs px-4 mt-1">Tentang</p>
+        <p class="text-gray-600 text-xs px-4 mt-1">Mitra</p>
+        <p class="text-gray-600 text-xs px-4 mt-1">Mulai Berjualan</p>
+        <p class="text-gray-600 text-xs px-4 mt-1">Promo</p>
+      </div>
+
+      <div class="flex items-center justify-start p-2.5">
+        <div class="sm:text-1xl md:text-2xl lg:text-3xl font-bold mr-5 font-poppins bg-gradient-to-br from-purple-800 to-blue-600 bg-clip-text text-transparent">mauistore</div>
+        <div class="flex flex-grow mr-5">
+          <input type="text" class="flex-grow p-2 border border-gray-300 rounded-l-md" placeholder="Search..." />
+          <button class="p-2.5 bg-blue-500 text-white rounded-r-md">🔍</button>
         </div>
-        <div class="hidden md:flex items-center">
-          {% if user.is_authenticated %}
-            <span class="text-gray-300 mr-4">Welcome, {{ user.username }}</span>
-            <a href="{% url 'main:logout' %}" class="text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-              Logout
-            </a>
-          {% else %}
-            <a href="{% url 'main:login' %}" class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2">
-              Login
-            </a>
-            <a href="{% url 'main:register' %}" class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-              Register
-            </a>
-          {% endif %}
-        </div>
-        <div class="md:hidden flex items-center">
+        <a href="#" class="hidden sm:inline-block"><button class="p-2 bg-blue-500 text-white rounded-md">Categories</button></a>
+        <a href="#" class="hidden sm:inline-block"><button class="p-2 bg-blue-500 text-white rounded-md">Cart</button></a>
+        <div class="h-6 w-0.5 bg-white mr-5"></div>
+        <a href="{% url 'main:logout' %}" class="hidden sm:inline-block"><button class="p-2 bg-red-500 text-white rounded-md">Logout</button></a>
+        <div class="sm:hidden flex items-center">
           <button class="mobile-menu-button">
             <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
               <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -27,31 +26,33 @@
           </button>
         </div>
       </div>
+    {% else %}
+      <a href="{% url 'main:login' %}" class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2">Login</a>
+      <a href="{% url 'main:register' %}" class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Register</a>
+    {% endif %}
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu hidden md:hidden px-4 w-full md:max-w-full bg-white bg-opacity-90 rounded-b-lg">
+    <div class="pt-2 pb-3 space-y-1 mx-auto">
+      {% if user.is_authenticated %}
+        <span class="block text-gray-800 px-3 py-2">Welcome, {{ user.username }}</span>
+        <a href="#" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Categories</a>
+        <a href="#" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Cart</a>
+        <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">Logout</a>
+      {% else %}
+        <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">Login</a>
+        <a href="{% url 'main:register' %}" class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Register</a>
+      {% endif %}
     </div>
-    <!-- Mobile menu -->
-    <div class="mobile-menu hidden md:hidden  px-4 w-full md:max-w-full">
-      <div class="pt-2 pb-3 space-y-1 mx-auto">
-        {% if user.is_authenticated %}
-          <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
-          <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-            Logout
-          </a>
-        {% else %}
-          <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">
-            Login
-          </a>
-          <a href="{% url 'main:register' %}" class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-            Register
-          </a>
-        {% endif %}
-      </div>
-    </div>
-    <script>
-      const btn = document.querySelector("button.mobile-menu-button");
-      const menu = document.querySelector(".mobile-menu");
+  </div>
+
+  <script>
+    const btn = document.querySelector('button.mobile-menu-button')
+    const menu = document.querySelector('.mobile-menu')
     
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-      });
-    </script>
-  </nav>
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden')
+    })
+  </script>
+</nav>

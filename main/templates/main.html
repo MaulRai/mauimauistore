@@ -1,208 +1,217 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% include 'navbar.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mauistore</title>
-  {% comment %} jejak style {% endcomment %}
-  {% comment %} <link rel="stylesheet" href="{% static 'css/styles.css'%}"> {% endcomment %}
-</head>
-<body>
+  {% include 'navbar.html' %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>mauistore</title>
+      <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+      {% comment %}jejak style{% endcomment %}
+      {% comment %} <link rel="stylesheet" href="{% static 'css/styles.css' %}" /> {% endcomment %}
+    </head>
+    <body>
+      <div class="header">
+        <p>Tentang</p>
+        <p>Mitra</p>
+        <p>Mulai Berjualan</p>
+        <p>Promo</p>
+      </div>
 
-<div class="header">
-  <p>Tentang</p>
-  <p>Mitra</p>
-  <p>Mulai Berjualan</p>
-  <p>Promo</p>
-</div>
+      {% comment %} <div class="welcome-box">
+        <p>
+          Selamat datang di <span class="heading">mauistore</span><br />
+          Mau belanja apa hari ini, {{ name }}?<br />
+          Sesi terakhir login: {{ last_login }}
+        </p>
+      </div> {% endcomment %}
+      <h1 class="sm:text-2xl md:text-3xl lg:text-4xl pt-16 sm:pt-24 pb-6 pl-6 font-bold">Halo, <span class="bg-gradient-to-br from-purple-800 to-blue-600 bg-clip-text text-transparent">{{ name }}</span>! Mau belanja apa hari ini?</h1>
 
-<div class="navbar">
-    <div class="heading">mauistore</div>
-    <div class="kategori">Kategori</div>
-    <div class="search-container">
-      <input type="text" class="search-bar" placeholder="Search...">
-      <button class="search-button">🔍</button>
-    </div>
-    <div class="cart-icon">🛒</div>
-    <div class="divider"></div>
-    <a href="{% url 'main:logout' %}">
-        <button>Logout</button>
-    </a>
-</div>
-
-<div class="welcome-box">
-  <p>
-    Selamat datang di <span class="heading">mauistore</span><br>
-    Mau belanja apa hari ini, {{ name }}?<br>
-    Sesi terakhir login: {{ last_login }}
-  </p>
-</div>
-
-<div class="slider-container">
-  <div class="slider">
-    <div class="slider-item"><img src="https://i.imgur.com/1wR4DLx.png" alt="Image K"></div>
-    <div class="slider-item"><img src="https://i.imgur.com/eU8NMkX.png" alt="Image 0"></div>
-    <div class="slider-item"><img src="https://i.imgur.com/EAqZEgX.png" alt="Image 1"></div>
-    <div class="slider-item"><img src="https://i.imgur.com/ZA4syDh.png" alt="Image 2"></div>
-  </div>
-
-  <div class="nav-buttons">
-    <button id="prev">&lt</button>
-    <button id="next">&gt</button>
-  </div>
-</div>
-
-<div class="category-box">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2>Kategori Pilihan</h2>
-        <a href="{% url 'main:create_product' %}" class="add-product">
-          <button>+ Tambah Produk</button>
-        </a>
-    </div>
-  <div class="product-row">
-    {% if not products %}
-        <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
-            <img src="{% static 'image/sedih-banget.png' %}" alt="Sad face" class="w-32 h-32 mb-4"/>
-            <p class="text-center text-gray-600 mt-4">Belum ada data mood pada mental health tracker.</p>
-        </div>
-    {% else %}
-        {% for product in products %}
-            {% include 'card_product.html' with product=product %}
-        {% endfor %}
-    {% endif %}
-    <br />
-  </div>
-</div>
-
-<footer class="footer-container">
-    <div class="footer-section">
-        <div>
-            <div class="footer-column">
-                <h3>Jelajahi</h3>
-                <ul>
-                    <li><a href="#">Elektronik</a></li>
-                    <li><a href="#">Fashion</a></li>
-                    <li><a href="#">Olahraga</a></li>
-                </ul>
-            </div>
-    
-            <div class="footer-column">
-                <h3>Ikuti Saya</h3>
-                <ul class="social-icons">
-                    <li>
-                        <a href="https://www.instagram.com/raihan_mauln" target="_blank">
-                            <img src="https://i.imgur.com/j50IxQp.png" alt="Instagram">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/muhammad-raihan-maulana-a05a2823a/" target="_blank">
-                            <img src="https://i.imgur.com/MCTLp3H.png" alt="LinkedIn">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.youtube.com/@KoboKanaeru" target="_blank">
-                            <img src="https://i.imgur.com/JJL9JW9.png" alt="YouTube">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://x.com/kobokanaeru" target="_blank">
-                            <img src="https://i.imgur.com/vj5uUiY.png" alt="X (Twitter)">
-                        </a>
-                    </li>
-                </ul>
-            </div>
+      <div class="slider-container">
+        <div class="slider">
+          <div class="slider-item">
+            <img src="{% static 'image/bannerkobo.png' %}" alt="Image K" />
+          </div>
+          <div class="slider-item">
+            <img src="{% static 'image/banner0.png' %}" alt="Image 0" />
+          </div>
+          <div class="slider-item">
+            <img src="{% static 'image/banner1.png' %}" alt="Image 1" />
+          </div>
+          <div class="slider-item">
+            <img src="{% static 'image/banner2.png' %}" alt="Image 2" />
+          </div>
         </div>
 
-        <div class="footer-column">
+        <div class="nav-buttons">
+          <button class="ml-1" id="prev">&lt</button>
+          <button id="next">&gt</button>
+        </div>
+      </div>
+
+      <div class="category-box">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2>Produk Saya</h2>
+          <a href="{% url 'main:create_product' %}" class="add-product"><button>+ Tambah Produk</button></a>
+        </div>
+        <div class="product-row">
+          {% if not products %}
+            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+              <img src="{% static 'image/sad-face.jpg' %}" alt="Sad face" class="w-32 h-32 mb-4" />
+              <p class="text-center text-gray-600 mt-4">Belum ada data mood pada mental health tracker.</p>
+            </div>
+          {% else %}
+            {% for product in products %}
+              {% include 'card_product.html' with product=product %}
+            {% endfor %}
+          {% endif %}
+          <br />
+        </div>
+      </div>
+
+      <footer class="footer-container">
+        <div class="footer-section">
+          <div class="justify-between">
+            <div class="footer-column">
+              <h3>Jelajahi</h3>
+              <ul>
+                <li>
+                  <a href="#">Elektronik</a>
+                </li>
+                <li>
+                  <a href="#">Fashion</a>
+                </li>
+                <li>
+                  <a href="#">Olahraga</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h3>Ikuti Saya</h3>
+              <ul class="flex gap-1">
+                <li>
+                  <a href="https://www.instagram.com/raihan_mauln" target="_blank"><img class="w-8 object-cover" src="https://i.imgur.com/j50IxQp.png" alt="Instagram" /></a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/muhammad-raihan-maulana-a05a2823a/" target="_blank"><img class="w-8 object-cover" src="https://i.imgur.com/MCTLp3H.png" alt="LinkedIn" /></a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@KoboKanaeru" target="_blank"><img class="w-8 object-cover" src="https://i.imgur.com/JJL9JW9.png" alt="YouTube" /></a>
+                </li>
+                <li>
+                  <a href="https://x.com/kobokanaeru" target="_blank"><img class="w-8 object-cover" src="https://i.imgur.com/vj5uUiY.png" alt="X (Twitter)" /></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-column">
             <h3>Overview</h3>
             <ul>
-                <li><a href="#">Karir</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">mauistore Marketing Solutions</a></li>
-                <li><a href="#">Kalkulator Indeks Masa Tubuh</a></li>
-                <li><a href="#">Promo Hari Ini</a></li>
-                <li><a href="#">Beli Lokal</a></li>
-                <li><a href="#">Promo</a></li>
+              <li>
+                <a href="#">Karir</a>
+              </li>
+              <li>
+                <a href="#">Blog</a>
+              </li>
+              <li>
+                <a href="#">mauistore Marketing Solutions</a>
+              </li>
+              <li>
+                <a href="#">Kalkulator Indeks Masa Tubuh</a>
+              </li>
+              <li>
+                <a href="#">Promo Hari Ini</a>
+              </li>
+              <li>
+                <a href="#">Beli Lokal</a>
+              </li>
+              <li>
+                <a href="#">Promo</a>
+              </li>
             </ul>
-        </div>
+          </div>
 
-        <!-- Bantuan Section -->
-        <div class="footer-column">
+          <!-- Bantuan Section -->
+          <div class="footer-column">
             <h3>Bantuan dan Panduan</h3>
             <ul>
-                <li><a href="#">Komunitas</a></li>
-                <li><a href="#">Syarat dan Ketentuan</a></li>
-                <li><a href="#">Kebijakan Privasi</a></li>
+              <li>
+                <a href="#">Komunitas</a>
+              </li>
+              <li>
+                <a href="#">Syarat dan Ketentuan</a>
+              </li>
+              <li>
+                <a href="#">Kebijakan Privasi</a>
+              </li>
             </ul>
-        </div>
+          </div>
 
-        <div class="footer-column app-section">
+          <div class="footer-column app-section">
             <h3>Aplikasi mauistore</h3>
-            <p>Belanja tanpa pake missing out kapan saja sekarang bisa langsung dari genggamanmu!</p>
+            <p>Belanja tanpa pake missing out kapan</p>
             <div class="app-row">
-                <img src="https://i.imgur.com/tAzai4d.png" alt="mauistore app placeholder" class="app-placeholder">
-        
-                <div class="app-buttons-column">
-                    <img src="https://static.wikia.nocookie.net/f7bb9d33-4f9a-4faa-88fe-2a0bd8138668" alt="Get it on Google Play" class="app-button">
-                    <img src="https://static.wikia.nocookie.net/464fc70a-5090-490b-b47e-0759e89c263f" alt="Download on the App Store" class="app-button">
-                </div>
+              <img class="w-32" src="https://i.imgur.com/tAzai4d.png" alt="mauistore app placeholder" />
+
+              <div class="app-buttons-column">
+                <img class="w-32" src="https://static.wikia.nocookie.net/f7bb9d33-4f9a-4faa-88fe-2a0bd8138668" alt="Get it on Google Play" />
+                <img class="w-32" src="https://static.wikia.nocookie.net/464fc70a-5090-490b-b47e-0759e89c263f" alt="Download on the App Store" />
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</footer>
+      </footer>
 
-{% comment %} <script src="{% static 'js/scripts.js' %}"></script> {% endcomment %}
-<script>
-    const slider = document.querySelector('.slider');
-    const sliderItems = document.querySelectorAll('.slider-item');
-    const prevButton = document.getElementById('prev');
-    const nextButton = document.getElementById('next');
-    let counter = 0;
-    const slideInterval = 5000;
-    let autoSlideInterval;
-
-    function updateSliderPosition() {
-        slider.style.transform = 'translateX(' + (-counter * 100) + '%)';
-    }
-
-    function goToNextSlide() {
-        counter = (counter + 1) % sliderItems.length;
-        updateSliderPosition();
-    }
-
-    function goToPrevSlide() {
-        counter = (counter - 1 + sliderItems.length) % sliderItems.length;
-        updateSliderPosition();
-    }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(goToNextSlide, slideInterval);
-    }
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
-
-    nextButton.addEventListener('click', () => {
-        goToNextSlide();
-        stopAutoSlide(); 
-        startAutoSlide(); 
-    });
-
-    prevButton.addEventListener('click', () => {
-        goToPrevSlide();
-        stopAutoSlide(); 
-        startAutoSlide(); 
-    });
-
-    startAutoSlide();
-</script>
-
-</body>
-</html>
-
-{% endblock content %}
+      {% comment %} <script src="{% static 'js/scripts.js' %}"></script> {% endcomment %}
+      <script>
+        const slider = document.querySelector('.slider')
+        const sliderItems = document.querySelectorAll('.slider-item')
+        const prevButton = document.getElementById('prev')
+        const nextButton = document.getElementById('next')
+        let counter = 0
+        const slideInterval = 5000
+        let autoSlideInterval
+        
+        function updateSliderPosition() {
+          slider.style.transform = 'translateX(' + -counter * 100 + '%)'
+        }
+        
+        function goToNextSlide() {
+          counter = (counter + 1) % sliderItems.length
+          updateSliderPosition()
+        }
+        
+        function goToPrevSlide() {
+          counter = (counter - 1 + sliderItems.length) % sliderItems.length
+          updateSliderPosition()
+        }
+        
+        function startAutoSlide() {
+          autoSlideInterval = setInterval(goToNextSlide, slideInterval)
+        }
+        
+        function stopAutoSlide() {
+          clearInterval(autoSlideInterval)
+        }
+        
+        nextButton.addEventListener('click', () => {
+          goToNextSlide()
+          stopAutoSlide()
+          startAutoSlide()
+        })
+        
+        prevButton.addEventListener('click', () => {
+          goToPrevSlide()
+          stopAutoSlide()
+          startAutoSlide()
+        })
+        
+        startAutoSlide()
+      </script>
+    </body>
+  </html>
+{% endblock %}
