@@ -29,7 +29,6 @@ DEBUG = not PRODUCTION
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1","172.32.0.253", "muhammad-raihan37-mauistore.pbp.cs.ui.ac.id"]
 
-
 # Application definition
 
 INSTALLED_APPS = [

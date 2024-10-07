@@ -414,6 +414,127 @@ Kegunaan dari grid layout adalah untuk me-layout item-item ke dalam tabel dengan
 
 ---
 
+# 📋 **Pertanyaan Tugas 6**
+
+## ↗ **Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!**
+Javascript berguna untuk membuat web yang kita kembangkan menjadi interactive. Dengan adanya fungsi handler pada javascript, web bisa melakukan update konten secara dinamis, menggunakan animasi, menu popup, kontrol multimedia, dan lain lain.Javascript sendiri bisa digunakan pada client-side dan server-side.
+
+Maanfaat lainnya dari javascript selain web development, bisa juga untuk aplikasi web, presentasi, aplikasi server, games, art, aplikasi mobile, dan bahkan robot[^14].
+
+---
+
+## ↗ **Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?**
+Fungsi statement `await` ketika kita menggunakan fetch() adalh untuk menunggu hasil return dari fungsi fetch nya. Jika kita tidak menggunakannya, pointer program akan langsung mengeksekusi perintah selanjutnya tanpa menunggu hasil dari data yang di fetch ini, sehingga ada kemungkinan variabel yang diisi oleh fetch akan bernilai null karena proses fetch nya belum selesai. `await` ini sendiri harus berada pada fungsi async. alternative lain yaitu dengan menggunakan method `.then` yang fungsinya sama, yaitu menunggu hasil sampai di return.
+
+---
+
+## ↗ **Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?**
+Sesuai deskripsi pada dokumentasi decorator csrf_exempt,
+
+"""Mark a view function as being exempt from the CSRF view protection."""
+
+csrf_exempt berguna agar pada page yang akan emlakukan request POST, page itu tidak perlu menggunakan form HTML dengan csrf_token untuk mengirim CSRF cookie yang diperlukan. Sehingga membuat Django tidak perlu mengecek keberadaan csrf_token pada POST request yang dikirimkan ke fungsi ini.
+
+Decorator csrf_exempt pada Django view digunakan untuk menonaktifkan proteksi Cross-Site Request Forgery (CSRF) pada request yang datang ke view tersebut. Biasanya, CSRF digunakan untuk mencegah serangan di mana situs eksternal mencoba mengirimkan permintaan palsu atas nama pengguna yang sudah login tanpa sepengetahuan mereka. Django menyediakan perlindungan CSRF secara otomatis pada semua view yang memproses request POST.
+
+Namun, ketika menggunakan AJAX untuk melakukan request POST, Django masih memerlukan CSRF token yang valid. Jika AJAX tidak mengirimkan token CSRF ini dengan benar, request POST akan ditolak, kecuali kita menonaktifkan perlindungan CSRF untuk view tersebut dengan @csrf_exempt[^15].
+
+---
+
+## ↗ **Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?**
+Karena input user tidak serta merta akan aman pada proses backend nya. Walaupun sudah dicegah agar input yang memiliki sifat required untuk tidak kosong, tetapi kemungkinan input kotor masih belum 0. Contohnya 
+
+`<img src=x onerror="alert('XSS!');">`
+
+Jika kita input ini pada textfield AJAX, akan ada alert XSS. Browser akan memparsing HTML tersebut, termasuk elemen <img> dan atribut onerror. Atribut onerror adalah event handler JavaScript yang akan dijalankan ketika terjadi kesalahan, misalnya jika gambar gagal dimuat (karena src=x tidak valid).
+
+Kesimpulannya, pembersihan input baik pada frontend maupun backend sangat penting, untuk memastikan keamanan data yang masuk. Karena data data yang tidak dibersihkan punya kemungkinan untuk menghilangkan atau memodifikasi data yang akan menyebabkan kerentanan sistem atau menyebabkan error.
+
+---
+
+## ↗ **Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
+1. **Mengintegrasi AJAX GET**
+  Karena kita akan mendapatkan objek-objek mood entry dari endpoint /json, maka `products = Product.objects.filter(user=request.user)` sudah tidak diperlukan pada views.py. Data seperti itu hanya akan ada pada show_json dan show_xml. Lalu pada main.html saya menghapus for loop untuk menampilkan each produk, karena itu akan di akan dihandle oleh JavaScript nantinya. Diganti oleh `<div id="product_cards"></div>`.
+
+  Untuk fungsi-fungsi javascript yang saya tembahkan meliputi `getProducts` yaitu function yang sebenarnya asynchronous tetapi dengaan bantuan `.then` bisa diakali menjadi sync, berfungsi untuk fetch data dalam bentuk Json. Lalu setelah di fetch data akan di refresh dengan `refreshProducts`, fungsi ini akan memanggil `getProducts` tadi, lalu mengecek apakah products nya ada atau tidak, jika ada akan menampilkan produk-produk nya, else akan menampilkan muka sedih. Display nya berisi for each dari konten reuse dari card_product.html, yang dimodifikasi, seperti
+
+  `{{product.name}}` menjadi `${item.fields.name}`
+
+  Penyesuaian ini karena iterate item yang digunakan adalah `item` bukan product lagi. Lalu className dan innerHtml di set ulang.
+  
+
+2. **(AJAX POST) tombol yang membuka sebuah modal dengan form untuk menambahkan mood.**
+  Tombol dibuat dengan:
+  ```<button data-modal-target="crudModal"data-modal-toggle="crudModal" 
+      class="btn ..."
+      onclick="showModal();">
+      + Tambah Product by AJAX
+   </button>```
+  dimana showModal berguna untuk remove property hidden (dan opasitas transparan) pada class crudModal dan kontennya agar user dapat melihat form nya
+
+3. **(AJAX POST) fungsi view baru untuk menambahkan mood baru ke dalam basis data dan path /create-ajax/ yang mengarah ke fungsi view tersebut**
+  fungsi baru yang ditambahkan bernama create_product_ajax dengan decorator @csrf_exempt dan @require_POST, fields nya berasal dari `request.POST.get(field)`, lalu lewat fields itu dibuat objek baru lalu di save adn return response. Lalu menambahkan fungsi ini ke url patterns. Agar input bersih, pada tiap fieldnya saya wrap dengan `strip_tags`
+
+  ```
+  @csrf_exempt
+@require_POST
+def create_product_ajax(request):
+    name = strip_tags(request.POST.get("name"))
+    price = (request.POST.get("price"))
+    rating = request.POST.get("rating")
+    stock = request.POST.get("stock")
+    desc = strip_tags(request.POST.get("desc"))
+    image = request.FILES.get('image')
+    user = request.user
+
+    new_product = Product(
+        name=name,
+        price=price,
+        rating=rating,
+        stock=stock,
+        desc=desc,
+        image=image,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)```
+
+  Agar bisa diakses fungsi ini perlu di tambahkan ke url patterns pada urls.py.
+
+4. **(AJAX POST) Hubungkan form yang telah kamu buat di dalam modal kamu ke path /create-ajax/.**
+  Karena pada form AJAX butuh di submit maka saya menambahkan button handlernya:
+  `<button type="submit" id="submitProduct" form="productForm" ... >Save</button>`
+
+  Nah untuk handler function nya berada di block script
+
+  ```document.getElementById("productForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        addProduct();
+    });```
+
+  dimana addProduct sebagai berikut:
+
+  ```function addProduct() {
+      fetch("{% url 'main:create_product_ajax' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#productForm')),
+      })
+      .then(response => refreshProducts())
+  
+      document.getElementById("productForm").reset(); 
+      document.querySelector("[data-modal-toggle='crudModal']").click();
+  
+      return false;
+    }```
+
+  function `create_product_ajax` pada views akan di panggil di addProduct ini
+
+5. **Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar mood terbaru tanpa reload halaman utama secara keseluruhan.**
+  Hasil: Refresh berhasil dilakukan dan menampilkan daftar produk terbaru tanpa reload halaman utama secara keseluruhan.
+
+---
+
 Thanks for visiting **mauistore**! Happy shopping!
 
 ---
@@ -428,5 +549,7 @@ Thanks for visiting **mauistore**! Happy shopping!
 [^9]: https://www.cookieyes.com/blog/internet-cookies/#:~:text=Cookies%20are%20set%20on%20the,ad%20targeting%2C%20and%20much%20more.
 [^10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
 [^11]: https://www.w3schools.com/css/css_specificity.asp
-[^11]: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-[^11]: https://css-tricks.com/snippets/css/complete-guide-grid/
+[^12]: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+[^13]: https://css-tricks.com/snippets/css/complete-guide-grid/
+[^14]: https://www.simplilearn.com/applications-of-javascript-article#:~:text=JavaScript%20(JS)%20is%20a%20cross,buttons%2C%20control%20multimedia%2C%20etc.
+[^15]: https://docs.djangoproject.com/en/5.1/howto/csrf/
