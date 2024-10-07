@@ -304,12 +304,19 @@ Border sendiri adalah pembatas antara content dengan hal hal lain diluarnya. Pro
 Margin adalah gap luar, berada diluar border. Gunanya agar ada gap diantara 'daerah' dari elemen satu dengan lainnya
 
            margin
+
 ////////b/o/r/d/e/r//////////
+
 //        padding          //
+
 //  contentcontentcontent  //
+
 //  contentcontentcontent  //
+
 //        padding          //
+
 ////////b/o/r/d/e/r//////////
+
            margin
 
 ---
@@ -334,8 +341,7 @@ Kegunaan dari grid layout adalah untuk me-layout item-item ke dalam tabel dengan
 2. **Implementasikan fungsi untuk menghapus dan mengedit product.** 
    Pertama saya menambahkan function berikut pada views.py, produk yang akan di POST (dalam hal ini diupdate) akan di filter terlebih dahulu dengan given id, lalu dibuat form yang sama dengan create product namun sudah pre-filled dengan yang terakhir kali disimpan. Selanjutnya akan di validasi dan diredirect ke laman edit page nya. Saya juga menambahkan path logic function edit_product ini ke urls.py.
 
-   ```
-   def edit_product(request, id):
+   ```def edit_product(request, id):
       product = Product.objects.get(pk = id)
 
       form = ProductForm(request.POST or None, instance=product)
@@ -352,8 +358,7 @@ Kegunaan dari grid layout adalah untuk me-layout item-item ke dalam tabel dengan
 
    Untuk handle delete product, saya mengimplementasi function delete_product dengan mengambil id produk tersebut lalu hapus dengan method delete(), lalu redirect:
 
-   ```
-   def delete_product(request, id):
+   ```def delete_product(request, id):
       product = Product.objects.get(pk = id)
       product.delete()
       # Kembali ke halaman awal
