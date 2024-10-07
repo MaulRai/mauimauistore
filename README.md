@@ -470,11 +470,15 @@ Kesimpulannya, pembersihan input baik pada frontend maupun backend sangat pentin
 
 2. **(AJAX POST) tombol yang membuka sebuah modal dengan form untuk menambahkan mood.**
   Tombol dibuat dengan:
-  ```<button data-modal-target="crudModal"data-modal-toggle="crudModal" 
+
+  ```
+  <button data-modal-target="crudModal"data-modal-toggle="crudModal" 
       class="btn ..."
       onclick="showModal();">
       + Tambah Product by AJAX
-   </button>```
+   </button>
+   ```
+  
   dimana showModal berguna untuk remove property hidden (dan opasitas transparan) pada class crudModal dan kontennya agar user dapat melihat form nya
 
 3. **(AJAX POST) fungsi view baru untuk menambahkan mood baru ke dalam basis data dan path /create-ajax/ yang mengarah ke fungsi view tersebut**
@@ -503,7 +507,8 @@ def create_product_ajax(request):
     )
     new_product.save()
 
-    return HttpResponse(b"CREATED", status=201)```
+    return HttpResponse(b"CREATED", status=201)
+   ```
 
   Agar bisa diakses fungsi ini perlu di tambahkan ke url patterns pada urls.py.
 
@@ -513,14 +518,17 @@ def create_product_ajax(request):
 
   Nah untuk handler function nya berada di block script
 
-  ```document.getElementById("productForm").addEventListener("submit", (e) => {
+  ```
+  document.getElementById("productForm").addEventListener("submit", (e) => {
         e.preventDefault();
         addProduct();
-    });```
+    });
+   ```
 
   dimana addProduct sebagai berikut:
 
-  ```function addProduct() {
+  ```
+  function addProduct() {
       fetch("{% url 'main:create_product_ajax' %}", {
         method: "POST",
         body: new FormData(document.querySelector('#productForm')),
@@ -531,7 +539,8 @@ def create_product_ajax(request):
       document.querySelector("[data-modal-toggle='crudModal']").click();
   
       return false;
-    }```
+    }
+   ```
 
   function `create_product_ajax` pada views akan di panggil di addProduct ini
 
